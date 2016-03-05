@@ -110,7 +110,8 @@ class TextInputGroup extends Component {
     this.changeText = this.changeText.bind(this);
   }
 
-  changeText(e) {
+  changeText(text) {
+    this.props.onChangeText && this.props.onChangeText(text)
   }
 
   render() {
@@ -122,9 +123,8 @@ class TextInputGroup extends Component {
           <TextInput
             style={{height: 80, borderColor: 'black', borderWidth: 1}}
             multiline={true}
-            onChange={this.changeText}
+            onChangeText={this.changeText}
             defaultValue={"Type a message (160 characters maximum)..."}
-            onChangeText={(text) => this.setState({text})}
             value={this.props.text}
         />
       </View>);
@@ -132,17 +132,31 @@ class TextInputGroup extends Component {
 }
 
 class respondersApp extends Component {
+  constructor(props) {
+    super(props);
 
-  submit(){
-        fetch("http://10.3.2.171:8000/message/45385/50/", {method: "POST", body: ""})
-        .then((response) => response.json)
-        .then((responseData) => {
-            AlertIOS.alert(
-                "POST Response",
-                "Response Body -> " + JSON.stringify(responseData.body)
-            )
-        })
-        .done();
+    //we don't want to re-render when this is changing -- just update the value and move along
+    //not really a best-practice -- hackathon stuff :)
+    this.text = "";
+
+    this.onChangeText = this.onChangeText.bind(this);
+    this.submit = this.submit.bind(this);
+  }
+
+  submit() {
+    fetch("http://10.3.2.171:8000/message/45385/50/", {method: "POST", body: this.text})
+    .then((response) => response.json)
+    .then((responseData) => {
+        AlertIOS.alert(
+          "POST Response",
+          "Response Body -> " + JSON.stringify(responseData.body)
+        )
+    })
+    .done();
+  }
+
+  onChangeText(text) {
+    this.text = text;
   }
 
   render() {
@@ -155,7 +169,7 @@ class respondersApp extends Component {
       <Header />
 
       <ButtonGroup />
-      <TextInputGroup />
+      <TextInputGroup onChangeText={this.onChangeText}/>
       <View style={{flex: 1}}>
         <View style={{flexDirection: 'row'}}>
           <Button
