@@ -11,7 +11,8 @@ import React, {
   StatusBar,
   Text,
   TouchableHighlight,
-  View
+  View,
+  TextInput
 } from 'react-native';
 
 class Header extends Component {
@@ -57,6 +58,24 @@ class ButtonGroup extends Component {
   }
 }
 
+class TextInputGroup extends Component {
+  render() {
+    return (
+      <View>
+        <Text>
+          NEW MESSAGE
+        </Text>
+          <TextInput
+            style={{height: 80, borderColor: 'black', borderWidth: 1}}
+            multiline={true}
+            defaultValue={"Type a message (160 characters maximum)..."}
+            onChangeText={(text) => this.setState({text})}
+            value={this.props.text}
+        />
+      </View>);
+  }
+}
+
 class respondersApp extends Component {
   render() {
     return (
@@ -65,14 +84,11 @@ class respondersApp extends Component {
          backgroundColor="blue"
          barStyle="light-content"
        />
-
       <Header />
+      
       <ButtonGroup />
-      <View>
-        <Text>
-          Test
-        </Text>
-      </View>
+      <TextInputGroup />
+
       <Navigator
          initialRoute={{statusBarHidden: true}}
          renderScene={(route, navigator) =>
