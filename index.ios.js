@@ -144,7 +144,14 @@ class respondersApp extends Component {
   }
 
   submit() {
-    fetch("http://10.3.2.171:8000/message/45385/50/", {method: "POST", body: this.text})
+    const text = this.text;
+    fetch("http://10.3.2.171:8000/message/45385/50/", {method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:  JSON.stringify({ message: text })
+    })
     .then((response) => response.json)
     .then((responseData) => {
         AlertIOS.alert(
