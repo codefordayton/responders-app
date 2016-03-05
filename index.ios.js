@@ -17,7 +17,7 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.header}>
-        <Text style={{color: "#FFFFFF"}}>Hi</Text>
+        <Text style={styles.headerText}><Text style={{fontWeight: '200'}}>MUSTER </Text>OHIO</Text>
       </View>
     );
   }
@@ -71,10 +71,17 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#9A0E0E",
     color: "#FFFFFF",
-    justifyContent: 'center',
-    textAlign: 'center'
+    justifyContent: "center",
+    textAlign: "center",
+    borderWidth: 10,
+    borderStyle: "solid",
+    borderColor: "#9A0E0E"
   },
-  
+  headerText: {
+    color: "#FFFFFF",
+    textAlign:"center",
+    fontSize:20
+  }
 });
 
 AppRegistry.registerComponent('respondersApp', () => respondersApp);
