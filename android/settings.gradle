@@ -1,0 +1,3 @@
+rootProject.name = 'respondersApp'
+
+include ':app'
