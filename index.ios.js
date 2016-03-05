@@ -10,6 +10,7 @@ import React, {
   Navigator,
   StatusBar,
   Text,
+  TouchableHighlight,
   View
 } from 'react-native';
 
@@ -23,6 +24,29 @@ class Header extends Component {
   }
 }
 
+class Button extends Component {
+  render() {
+    return (
+      <TouchableHighlight style={this.props.style || styles.button}>
+        <Text>
+          {this.props.text}
+        </Text>
+      </TouchableHighlight>
+    );
+  }
+}
+
+class ButtonGroup extends Component {
+  render() {
+    return (
+      <View>
+        <Button text="Nearby" style={{ flex: 1, backgroundColor: "#EDEDED"}}/>
+        <Button text="Map" style={{ flex: 1, backgroundColor: "#EDEDED"}}/>
+        <Button text="Region" style={{ flex: 1, backgroundColor:"#EDEDED"}}/>
+      </View>);
+  }
+}
+
 class respondersApp extends Component {
   render() {
     return (
@@ -33,6 +57,7 @@ class respondersApp extends Component {
        />
 
       <Header />
+      <ButtonGroup />
       <View>
         <Text>
           Test
@@ -68,6 +93,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+
   header: {
     backgroundColor: "#9A0E0E",
     color: "#FFFFFF",
@@ -80,7 +106,12 @@ const styles = StyleSheet.create({
   headerText: {
     color: "#FFFFFF",
     textAlign:"center",
-    fontSize:20
+    fontSize:20,
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
+  button: {
+    backgroundColor: "#EDEDED"
   }
 });
 
