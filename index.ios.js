@@ -7,26 +7,47 @@ import React, {
   AppRegistry,
   Component,
   StyleSheet,
+  Navigator,
+  StatusBar,
   Text,
   View
 } from 'react-native';
 
+class Header extends Component {
+  render() {
+    return (
+      <View style={styles.header}>
+        <Text style={{color: "#FFFFFF"}}>Hi</Text>
+      </View>
+    );
+  }
+}
+
 class respondersApp extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Vim
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
+     <View>
+       <StatusBar
+         backgroundColor="blue"
+         barStyle="light-content"
+       />
+
+      <Header />
+      <View>
+        <Text>
+          Test
         </Text>
       </View>
-    );
+      <Navigator
+         initialRoute={{statusBarHidden: true}}
+         renderScene={(route, navigator) =>
+           <View>
+             <StatusBar hidden={route.statusBarHidden} />
+           </View>
+         }
+      />
+     </View>
+    )
   }
 }
 
@@ -47,6 +68,13 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
+  header: {
+    backgroundColor: "#9A0E0E",
+    color: "#FFFFFF",
+    justifyContent: 'center',
+    textAlign: 'center'
+  },
+  
 });
 
 AppRegistry.registerComponent('respondersApp', () => respondersApp);
