@@ -15,6 +15,8 @@ import React, {
   TextInput
 } from 'react-native';
 
+const buttonHeight = 48;
+
 class Header extends Component {
   render() {
     return (
@@ -39,7 +41,13 @@ class Button extends Component {
     return (
       <View style={this.props.style}>
         <TouchableHighlight onPress={this.onPress}>
-          <Text>
+          <Text style={{color: this.props.textColor || "#000",
+            textAlign: "center",
+            display: "flex",
+            flex: 1,
+            height: 48,
+            alignItems: "center"}}
+          >
             {this.props.text}
           </Text>
         </TouchableHighlight>
@@ -96,6 +104,14 @@ class ButtonGroup extends Component {
 }
 
 class TextInputGroup extends Component {
+  constructor(props) {
+    super(props);
+    this.changeText = this.changeText.bind(this);
+  }
+
+  changeText(e) {
+  }
+
   render() {
     return (
       <View>
@@ -105,6 +121,7 @@ class TextInputGroup extends Component {
           <TextInput
             style={{height: 80, borderColor: 'black', borderWidth: 1}}
             multiline={true}
+            onChange={this.changeText}
             defaultValue={"Type a message (160 characters maximum)..."}
             onChangeText={(text) => this.setState({text})}
             value={this.props.text}
@@ -122,10 +139,19 @@ class respondersApp extends Component {
          barStyle="light-content"
        />
       <Header />
-      
+
       <ButtonGroup />
       <TextInputGroup />
-
+      <View style={{flex: 1}}>
+        <View style={{flexDirection: 'row'}}>
+          <Button
+            onPress={this.submit}
+            text="Send"
+            textColor="#FFF"
+            style={{backgroundColor: "#9A0E0E", height: 48, flex: .5}}
+          />
+        </View>
+      </View>
       <Navigator
          initialRoute={{statusBarHidden: true}}
          renderScene={(route, navigator) =>
