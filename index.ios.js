@@ -12,7 +12,8 @@ import React, {
   Text,
   TouchableHighlight,
   View,
-  TextInput
+  TextInput,
+  AlertIOS
 } from 'react-native';
 
 const buttonHeight = 48;
@@ -131,6 +132,19 @@ class TextInputGroup extends Component {
 }
 
 class respondersApp extends Component {
+
+  submit(){
+        fetch("http://10.3.2.171:8000/message/45385/50/", {method: "POST", body: ""})
+        .then((response) => response.json)
+        .then((responseData) => {
+            AlertIOS.alert(
+                "POST Response",
+                "Response Body -> " + JSON.stringify(responseData.body)
+            )
+        })
+        .done();
+  }
+
   render() {
     return (
      <View>
