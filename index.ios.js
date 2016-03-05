@@ -27,11 +27,13 @@ class Header extends Component {
 class Button extends Component {
   render() {
     return (
-      <TouchableHighlight style={this.props.style || styles.button}>
-        <Text>
-          {this.props.text}
-        </Text>
-      </TouchableHighlight>
+      <View style={this.props.style}>
+        <TouchableHighlight onClick={this.props.onClick}>
+          <Text>
+            {this.props.text}
+          </Text>
+        </TouchableHighlight>
+      </View>
     );
   }
 }
@@ -39,10 +41,18 @@ class Button extends Component {
 class ButtonGroup extends Component {
   render() {
     return (
-      <View>
-        <Button text="Nearby" style={{ flex: 1, backgroundColor: "#EDEDED"}}/>
-        <Button text="Map" style={{ flex: 1, backgroundColor: "#EDEDED"}}/>
-        <Button text="Region" style={{ flex: 1, backgroundColor:"#EDEDED"}}/>
+      <View style={{flex: 1}}>
+        <View style={{flexDirection: 'row'}}>
+          <Button text="Nearby"
+            style={{ backgroundColor: "#EDEDED", flex: 1, height: 48}}
+          />
+          <Button text="Map"
+            style={{ backgroundColor: "#EDEDED", flex: 1, height: 48}}
+          />
+          <Button text="Region"
+            style={{ backgroundColor:"#EDEDED", flex: 1, height: 48}}
+          />
+        </View>
       </View>);
   }
 }
