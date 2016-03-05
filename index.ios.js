@@ -26,10 +26,19 @@ class Header extends Component {
 }
 
 class Button extends Component {
+  constructor(props) {
+    super(props);
+    this.onPress = this.onPress.bind(this);
+  }
+
+  onPress() {
+    this.props.onPress && this.props.onPress(this.props);
+  }
+
   render() {
     return (
       <View style={this.props.style}>
-        <TouchableHighlight onClick={this.props.onClick}>
+        <TouchableHighlight onPress={this.onPress}>
           <Text>
             {this.props.text}
           </Text>
@@ -40,18 +49,46 @@ class Button extends Component {
 }
 
 class ButtonGroup extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { current: 'nearby' };
+    this.setCurrent = this.setCurrent.bind(this);
+  }
+
+  setCurrent(props) {
+    this.setState({
+      current: props.id
+    });
+  }
+
+  getBaseStyle() {
+    return { backgroundColor: "#EDEDED", flex: 1, height: 48}
+  }
+
+  getSelectedStyle() {
+    const base = this.getBaseStyle();
+    base["backgroundColor"] = "#555555";
+    return base;
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
         <View style={{flexDirection: 'row'}}>
           <Button text="Nearby"
-            style={{ backgroundColor: "#EDEDED", flex: 1, height: 48}}
+            id="nearby"
+            onPress={this.setCurrent}
+            style={this.state.current === "nearby" ? this.getSelectedStyle() : this.getBaseStyle()}
           />
           <Button text="Map"
-            style={{ backgroundColor: "#EDEDED", flex: 1, height: 48}}
+            id="map"
+            onPress={this.setCurrent}
+            style={this.state.current === "map" ? this.getSelectedStyle() :  this.getBaseStyle()}
           />
           <Button text="Region"
-            style={{ backgroundColor:"#EDEDED", flex: 1, height: 48}}
+            id="region"
+            onPress={this.setCurrent}
+            style={this.state.current === "region" ? this.getSelectedStyle() : this.getBaseStyle()}
           />
         </View>
       </View>);
